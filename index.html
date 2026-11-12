@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Nariño | Magia Andina y del Pacífico Colombiano</title>
+    
+    <!-- Fuentes de Google Fonts -->
+    <link rel="preconnect" href="[suspicious link removed]">
+    <link rel="preconnect" href="[suspicious link removed]" crossorigin>
+    <link href="[suspicious link removed]" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="[suspicious link removed]" rel="stylesheet">
+    
+    <!-- Font Awesome Icons CDN -->
+    <link href="[suspicious link removed]" rel="stylesheet">
+    
+    <style>
+        /* Variables de Paleta Cálida y Natural */
+        :root {
+            --color-terracota: #8B3A2B;
+            --color-bosque: #2E5A44;
+            --color-dorado: #D97706;
+            --color-crema: #FDFBF7;
+            --color-carbon: #1F2937;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--color-crema);
+            color: var(--color-carbon);
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Navegación */
+        .navbar-custom {
+            background-color: rgba(31, 41, 55, 0.95);
+            backdrop-filter: blur(8px);
+        }
+
+        .navbar-custom .nav-link {
+            color: #F3F4F6;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-custom .nav-link:hover,
+        .navbar-custom .nav-link.active {
+            color: var(--color-dorado);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.8)), 
+                        url("data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='1200' height='800' viewBox='0 0 1200 800'><rect width='100%' height='100%' fill='%231E293B'/><circle cx='600' cy='400' r='300' fill='%238B3A2B' opacity='0.4'/></svg>") center/cover no-repeat;
+            padding: 160px 0 120px 0;
+            color: #ffffff;
+        }
+
+        .hero-badge {
+            background-color: var(--color-dorado);
+            color: #ffffff;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        /* Botones */
+        .btn-terracota {
+            background-color: var(--color-terracota);
+            color: #ffffff;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-terracota:hover {
+            background-color: #722f22;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Tarjetas de Destinos */
+        .destination-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 30px rgba(0,0,0,0.12) !important;
+        }
+
+        .destination-card .card-img-container {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .destination-card .card-img-top {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(31, 41, 55, 0.85);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        /* Filtros */
+        .filter-btn {
+            border-radius: 30px;
+            padding: 8px 22px;
+            font-weight: 600;
+            border: 2px solid var(--color-bosque);
+            color: var(--color-bosque);
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--color-bosque);
+            color: #ffffff;
+        }
+
+        /* Tarjetas de Gastronomía */
+        .gastro-card {
+            background: #ffffff;
+            border-left: 5px solid var(--color-terracota);
+            border-radius: 10px;
+        }
+
+        .video-container {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .like-btn {
+            cursor: pointer;
+            user-select: none;
+        }
+        .like-btn.liked {
+            color: #DC2626 !important;
+        }
+
+        #btnBackToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--color-terracota);
+            color: white;
+            border: none;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="#inicio">
+                <i class="fa-solid fa-mountain-sun text-warning me-2"></i>Nariño Turístico
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#destinos">Destinos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#video">Video</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gastronomia">Gastronomía</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sobre-narino">Sobre Nariño</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="inicio" class="hero-section text-center">
+        <div class="container">
+            <span class="hero-badge mb-3"><i class="fa-solid fa-location-dot me-1"></i> Suroeste de Colombia</span>
+            <h1 class="display-3 fw-bold mb-3 text-white">Nariño: Tierra de Fe, Naturaleza e Historia</h1>
+            <p class="lead mb-4 mx-auto text-light" style="max-width: 800px;">
+                Desde la majestuosidad neogótica de Las Lajas y la mística Laguna de La Cocha, hasta la cultura viva de Pasto y el encanto pacífico de Tumaco.
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="#destinos" class="btn btn-terracota btn-lg px-4 py-2 fw-semibold">
+                    <i class="fa-solid fa-compass me-2"></i>Explorar Destinos
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Destinos -->
+    <section id="destinos" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold fs-1" style="color: var(--color-terracota);">Principales Atractivos Turísticos</h2>
+                <p class="text-muted fs-5">Filtra por categoría o usa el buscador en tiempo real</p>
+            </div>
+
+            <!-- Buscador y Filtros -->
+            <div class="row justify-content-center mb-4 g-3">
+                <div class="col-md-6 col-lg-5">
+                    <div class="input-group shadow-sm">
+                        <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                        <input type="text" id="searchInput" class="form-control border-start-0 ps-0" placeholder="Buscar destino o municipio...">
+                    </div>
+                </div>
+                <div class="col-12 text-center mt-3">
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <button type="button" class="btn filter-btn active" data-filter="all">Todos</button>
+                        <button type="button" class="btn filter-btn" data-filter="arquitectura">Arquitectura y Fe</button>
+                        <button type="button" class="btn filter-btn" data-filter="naturaleza">Naturaleza y Montaña</button>
+                        <button type="button" class="btn filter-btn" data-filter="pacifico">Pacífico y Costa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grilla con Ilustraciones SVG integradas (100% funcionales al abrir) -->
+            <div class="row g-4" id="destinationGrid">
+
+                <!-- Card 1 -->
+                <div class="col-md-6 col-lg-4 destination-card-wrapper" data-category="arquitectura">
+                    <article class="card h-100 border-0 shadow-sm destination-card">
+                        <div class="card-img-container">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%238B3A2B'/><text x='50%' y='45%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='30' text-anchor='middle'>Santuario de Las Lajas</text><text x='50%' y='58%' fill='%23D97706' font-family='sans-serif' font-size='18' text-anchor='middle'>Ipiales • Arquitectura Neogótica</text></svg>" class="card-img-top" alt="Santuario de Las Lajas">
+                            <span class="category-badge"><i class="fa-solid fa-church me-1"></i> Arquitectura</span>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title h5 fw-bold mb-1">Santuario de Las Lajas</h3>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-location-dot text-danger me-1"></i>Ipiales, Nariño</p>
+                            <p class="card-text text-secondary flex-grow-1">
+                                Obra neogótica erigida sobre un abismo de 100 metros en el cañón del río Guáitara. Considerada una de las iglesias más bellas del mundo.
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-3">
+                            <span class="like-btn text-muted fw-semibold"><i class="fa-solid fa-heart me-1"></i><span class="like-count">342</span></span>
+                            <button class="btn btn-sm btn-outline-dark rounded-pill px-3 view-detail-btn" data-bs-toggle="modal" data-bs-target="#detailModal" data-title="Santuario de Las Lajas" data-location="Ipiales, Nariño" data-description="Basílica neogótica construida entre 1916 y 1949 sobre el río Guáitara. Es un ícono de la fe y el turismo internacional." data-img="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%238B3A2B'/><text x='50%' y='50%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='32' text-anchor='middle'>Santuario de Las Lajas</text></svg>">Ver Detalles</button>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-md-6 col-lg-4 destination-card-wrapper" data-category="naturaleza">
+                    <article class="card h-100 border-0 shadow-sm destination-card">
+                        <div class="card-img-container">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%232E5A44'/><text x='50%' y='45%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='30' text-anchor='middle'>Laguna de La Cocha</text><text x='50%' y='58%' fill='%23D97706' font-family='sans-serif' font-size='18' text-anchor='middle'>El Encano • Isla La Corota</text></svg>" class="card-img-top" alt="Laguna de La Cocha">
+                            <span class="category-badge"><i class="fa-solid fa-tree me-1"></i> Naturaleza</span>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title h5 fw-bold mb-1">Laguna de La Cocha</h3>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-location-dot text-danger me-1"></i>El Encano, Nariño</p>
+                            <p class="card-text text-secondary flex-grow-1">
+                                Gran embalse glacial rodeado de caseríos suizos. Alberga el Santuario de Flora y Fauna Isla La Corota.
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-3">
+                            <span class="like-btn text-muted fw-semibold"><i class="fa-solid fa-heart me-1"></i><span class="like-count">289</span></span>
+                            <button class="btn btn-sm btn-outline-dark rounded-pill px-3 view-detail-btn" data-bs-toggle="modal" data-bs-target="#detailModal" data-title="Laguna de La Cocha" data-location="El Encano, Nariño" data-description="Segundo lago natural más grande del país. Destino idóneo para paseos en lancha, pesca de trucha y avistamiento de flora andina." data-img="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%232E5A44'/><text x='50%' y='50%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='32' text-anchor='middle'>Laguna de La Cocha</text></svg>">Ver Detalles</button>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-md-6 col-lg-4 destination-card-wrapper" data-category="naturaleza">
+                    <article class="card h-100 border-0 shadow-sm destination-card">
+                        <div class="card-img-container">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%234B5563'/><text x='50%' y='45%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='30' text-anchor='middle'>Volcán Galeras y Pasto</text><text x='50%' y='58%' fill='%23D97706' font-family='sans-serif' font-size='18' text-anchor='middle'>San Juan de Pasto</text></svg>" class="card-img-top" alt="Volcán Galeras">
+                            <span class="category-badge"><i class="fa-solid fa-mountain me-1"></i> Naturaleza</span>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title h5 fw-bold mb-1">Volcán Galeras y Pasto</h3>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-location-dot text-danger me-1"></i>Pasto, Nariño</p>
+                            <p class="card-text text-secondary flex-grow-1">
+                                La capital se sitúa a los pies del volcán Galeras. Cuna de artesanos del Barniz de Pasto y del Carnaval de Negros y Blancos.
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-3">
+                            <span class="like-btn text-muted fw-semibold"><i class="fa-solid fa-heart me-1"></i><span class="like-count">210</span></span>
+                            <button class="btn btn-sm btn-outline-dark rounded-pill px-3 view-detail-btn" data-bs-toggle="modal" data-bs-target="#detailModal" data-title="Volcán Galeras y Pasto" data-location="Pasto, Nariño" data-description="Pasto destaca por sus templos coloniales, gastronomía tradicional y el majestuoso paisaje del complejo volcánico Galeras." data-img="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%234B5563'/><text x='50%' y='50%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='32' text-anchor='middle'>Volcán Galeras</text></svg>">Ver Detalles</button>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="col-md-6 col-lg-4 destination-card-wrapper" data-category="pacifico">
+                    <article class="card h-100 border-0 shadow-sm destination-card">
+                        <div class="card-img-container">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%230284C7'/><text x='50%' y='45%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='30' text-anchor='middle'>Playas de Tumaco</text><text x='50%' y='58%' fill='%23FDE047' font-family='sans-serif' font-size='18' text-anchor='middle'>Costa Pacífica • Isla del Morro</text></svg>" class="card-img-top" alt="Tumaco">
+                            <span class="category-badge"><i class="fa-solid fa-umbrella-beach me-1"></i> Pacífico</span>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title h5 fw-bold mb-1">Tumaco: La Perla del Pacífico</h3>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-location-dot text-danger me-1"></i>Tumaco, Nariño</p>
+                            <p class="card-text text-secondary flex-grow-1">
+                                Playas como El Morro y Bocagrande, frondosos manglares, música de marimba y gastronomía marina basada en leche de coco.
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-3">
+                            <span class="like-btn text-muted fw-semibold"><i class="fa-solid fa-heart me-1"></i><span class="like-count">195</span></span>
+                            <button class="btn btn-sm btn-outline-dark rounded-pill px-3 view-detail-btn" data-bs-toggle="modal" data-bs-target="#detailModal" data-title="Playas de Tumaco" data-location="Tumaco, Nariño" data-description="El puerto pacífico nariñense ofrece gastronomía de encocados, paisajes marinos y ritmos autóctonos Patrimonio UNESCO." data-img="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%230284C7'/><text x='50%' y='50%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='32' text-anchor='middle'>Playas de Tumaco</text></svg>">Ver Detalles</button>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="col-md-6 col-lg-4 destination-card-wrapper" data-category="pacifico">
+                    <article class="card h-100 border-0 shadow-sm destination-card">
+                        <div class="card-img-container">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%23065F46'/><text x='50%' y='45%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='30' text-anchor='middle'>P.N.N. Sanquianga</text><text x='50%' y='58%' fill='%23A7F3D0' font-family='sans-serif' font-size='18' text-anchor='middle'>Reserva de Manglares</text></svg>" class="card-img-top" alt="Sanquianga">
+                            <span class="category-badge"><i class="fa-solid fa-water me-1"></i> Pacífico</span>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title h5 fw-bold mb-1">P.N.N. Sanquianga</h3>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-location-dot text-danger me-1"></i>Costa Pacífica Nariñense</p>
+                            <p class="card-text text-secondary flex-grow-1">
+                                Uno de los santuarios de manglar más extensos de América del Sur. Hábitat vital para tortugas marinas y aves migratorias.
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-3">
+                            <span class="like-btn text-muted fw-semibold"><i class="fa-solid fa-heart me-1"></i><span class="like-count">162</span></span>
+                            <button class="btn btn-sm btn-outline-dark rounded-pill px-3 view-detail-btn" data-bs-toggle="modal" data-bs-target="#detailModal" data-title="P.N.N. Sanquianga" data-location="Costa Pacífica Nariñense" data-description="Más de 80.000 hectáreas que protegen el 20% de los manglares del Pacífico colombiano. Destino ideal para ecoturismo científico." data-img="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%23065F46'/><text x='50%' y='50%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='32' text-anchor='middle'>P.N.N. Sanquianga</text></svg>">Ver Detalles</button>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="col-md-6 col-lg-4 destination-card-wrapper" data-category="naturaleza">
+                    <article class="card h-100 border-0 shadow-sm destination-card">
+                        <div class="card-img-container">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%231F2937'/><text x='50%' y='45%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='30' text-anchor='middle'>Volcán y Laguna de Cumbal</text><text x='50%' y='58%' fill='%23FDBA74' font-family='sans-serif' font-size='18' text-anchor='middle'>Alta Montaña • 4.764 msnm</text></svg>" class="card-img-top" alt="Cumbal">
+                            <span class="category-badge"><i class="fa-solid fa-mountain me-1"></i> Naturaleza</span>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title h5 fw-bold mb-1">Volcán y Laguna de Cumbal</h3>
+                            <p class="text-muted small mb-2"><i class="fa-solid fa-location-dot text-danger me-1"></i>Cumbal, Nariño</p>
+                            <p class="card-text text-secondary flex-grow-1">
+                                El punto más elevado de Nariño. Ofrece parajes místicos de páramo altoandino, fumarolas activas y lagunas sagradas.
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center pb-3">
+                            <span class="like-btn text-muted fw-semibold"><i class="fa-solid fa-heart me-1"></i><span class="like-count">148</span></span>
+                            <button class="btn btn-sm btn-outline-dark rounded-pill px-3 view-detail-btn" data-bs-toggle="modal" data-bs-target="#detailModal" data-title="Volcán y Laguna de Cumbal" data-location="Cumbal, Nariño" data-description="Cumbre rodeada de la mística comunidad indígena de los Pastos. Excelente para montañismo y senderismo de altitud." data-img="data:image/svg+xml;utf8,<svg xmlns='[suspicious link removed]' width='800' height='500' viewBox='0 0 800 500'><rect width='100%' height='100%' fill='%231F2937'/><text x='50%' y='50%' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='32' text-anchor='middle'>Volcán y Laguna de Cumbal</text></svg>">Ver Detalles</button>
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Video -->
+    <section id="video" class="py-5 bg-dark text-white">
+        <div class="container py-4">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5">
+                    <span class="badge bg-warning text-dark px-3 py-2 mb-3 fw-bold">EXPERIENCIA AUDIOVISUAL</span>
+                    <h2 class="display-6 fw-bold mb-3">Siente la Magia de Nariño en Movimiento</h2>
+                    <p class="text-light lead">
+                        Un recorrido visual por los contrastes de la cordillera andina, el murmullo de las cascadas y el son de la marimba en el Pacífico.
+                    </p>
+                </div>
+                <div class="col-lg-7">
+                    <div class="ratio ratio-16x9 video-container">
+                        <iframe src="[suspicious link removed]" title="Video Promocional Nariño Turístico" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Gastronomía -->
+    <section id="gastronomia" class="py-5">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold fs-1" style="color: var(--color-terracota);">Sabores Tradicionales de Nariño</h2>
+                <p class="text-muted fs-5">Fusión entre la cocina ancestral andina y la sazón del Pacífico</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="p-4 gastro-card h-100 shadow-sm">
+                        <div class="text-warning mb-3 fs-2"><i class="fa-solid fa-drumstick-bite"></i></div>
+                        <h3 class="h5 fw-bold mb-2">Cuy Asado</h3>
+                        <p class="text-secondary small">Asado a las brasas y servido con papa pastusa, crispetas y ají de maní tradicional.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="p-4 gastro-card h-100 shadow-sm">
+                        <div class="text-warning mb-3 fs-2"><i class="fa-solid fa-cookie"></i></div>
+                        <h3 class="h5 fw-bold mb-2">Empanadas de Añejo</h3>
+                        <p class="text-secondary small">Masa de maíz fermentado (añejo) fritas, rellenas de carne o guiso con ají de piña.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="p-4 gastro-card h-100 shadow-sm">
+                        <div class="text-warning mb-3 fs-2"><i class="fa-solid fa-ice-cream"></i></div>
+                        <h3 class="h5 fw-bold mb-2">Helados de Paila</h3>
+                        <p class="text-secondary small">Batidos a mano en paila de bronce sobre hielo. Sabores únicos como mora y guanábana.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="p-4 gastro-card h-100 shadow-sm">
+                        <div class="text-warning mb-3 fs-2"><i class="fa-solid fa-fish-fins"></i></div>
+                        <h3 class="h5 fw-bold mb-2">Encocado de Pescado</h3>
+                        <p class="text-secondary small">Directo de Tumaco. Pescado fresco estofado en leche de coco y hierbas azotea.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto" class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0 text-secondary">&copy; 2026 Nariño Turístico. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Detalles -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0">
+                <div class="modal-header border-0 pb-0">
+                    <h3 class="modal-title h5 fw-bold" id="modalTitle">Título</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImg" src="" class="img-fluid rounded-3 mb-3 w-100" style="max-height: 400px; object-fit: cover;" alt="Destino">
+                    <p class="text-terracota fw-bold mb-2" id="modalLocation"><i class="fa-solid fa-location-dot me-1"></i>Ubicación</p>
+                    <p id="modalDescription" class="text-secondary">Descripción...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón Volver Arriba -->
+    <button id="btnBackToTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="[suspicious link removed]"></script>
+
+    <!-- JavaScript Vanilla -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Filtros por Categoría
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const cardWrappers = document.querySelectorAll('.destination-card-wrapper');
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const category = btn.getAttribute('data-filter');
+
+                    cardWrappers.forEach(wrapper => {
+                        if (category === 'all' || wrapper.getAttribute('data-category') === category) {
+                            wrapper.style.display = 'block';
+                        } else {
+                            wrapper.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // 2. Buscador en Tiempo Real
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+
+                cardWrappers.forEach(wrapper => {
+                    const title = wrapper.querySelector('.card-title').textContent.toLowerCase();
+                    const text = wrapper.querySelector('.card-text').textContent.toLowerCase();
+                    const location = wrapper.querySelector('.text-muted').textContent.toLowerCase();
+
+                    if (title.includes(query) || text.includes(query) || location.includes(query)) {
+                        wrapper.style.display = 'block';
+                    } else {
+                        wrapper.style.display = 'none';
+                    }
+                });
+            });
+
+            // 3. Contador de Me Gusta
+            const likeBtns = document.querySelectorAll('.like-btn');
+            likeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const countSpan = this.querySelector('.like-count');
+                    let count = parseInt(countSpan.textContent);
+
+                    if (this.classList.contains('liked')) {
+                        this.classList.remove('liked');
+                        countSpan.textContent = count - 1;
+                    } else {
+                        this.classList.add('liked');
+                        countSpan.textContent = count + 1;
+                    }
+                });
+            });
+
+            // 4. Modal dinámico
+            const detailModal = document.getElementById('detailModal');
+            if (detailModal) {
+                detailModal.addEventListener('show.bs.modal', (event) => {
+                    const button = event.relatedTarget;
+
+                    const title = button.getAttribute('data-title');
+                    const location = button.getAttribute('data-location');
+                    const description = button.getAttribute('data-description');
+                    const img = button.getAttribute('data-img');
+
+                    document.getElementById('modalTitle').textContent = title;
+                    document.getElementById('modalLocation').innerHTML = `<i class="fa-solid fa-location-dot me-1"></i>${location}`;
+                    document.getElementById('modalDescription').textContent = description;
+                    document.getElementById('modalImg').src = img;
+                });
+            }
+
+            // 5. Botón Volver Arriba
+            const btnBackToTop = document.getElementById('btnBackToTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    btnBackToTop.style.display = 'block';
+                } else {
+                    btnBackToTop.style.display = 'none';
+                }
+            });
+
+            btnBackToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
